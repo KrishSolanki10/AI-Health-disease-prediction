@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disease Prediction System</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <header class="topbar">
+    <h1>🩺 Disease Prediction System</h1>
+    <p class="subtitle">ML-powered symptom checker · model: {{ best_model }} · 132 symptoms · 41 diseases</p>
+  </header>
+
+  <main class="container">
+
+    <section class="card">
+      <h2>Select your symptoms</h2>
+      <input type="text" id="symptom-search" placeholder="🔍 Search symptoms (e.g. fever, headache)..." class="search-box">
+
+      <div class="symptom-grid" id="symptom-grid">
+        {% for s in symptoms %}
+        <label class="symptom-chip">
+          <input type="checkbox" name="symptom" value="{{ s.key }}">
+          <span>{{ s.label }}</span>
+        </label>
+        {% endfor %}
+      </div>
+
+      <div class="action-row">
+        <span id="selected-count">0 symptoms selected</span>
+        <button id="predict-btn" class="btn-predict">Analyze Symptoms</button>
+      </div>
+    </section>
+
+    <section class="card result-card" id="result-card" style="display:none;">
+      <h2>AI Analysis</h2>
+      <div id="result-content"></div>
+    </section>
+
+    <p class="disclaimer">
+      ⚠ This tool is for educational / decision-support purposes only.
+      It is not a medical diagnosis. Please consult a qualified doctor
+      for any real health concern.
+    </p>
+
+  </main>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
